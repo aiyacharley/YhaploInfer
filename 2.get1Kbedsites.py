@@ -1,13 +1,14 @@
 import os,sys
 import csv
 from glob import glob
+import gzip
 
 handle1 = open("1Kgene_capture_targets.chrY.bed","rU") # 1Kgene_capture_targets.chrY.bed
 Ylist = [0]*28818010  #28818008
 for rec in csv.reader(handle1,delimiter="\t"):
 	for i in range(int(rec[1]),int(rec[2])+1):
 		Ylist[i] = 1
-infiles = glob("mutation_ISOGG2019_*.txt")
+infiles = glob("ISOGG2019_mutation/mutation_ISOGG2019_*.txt")
 dictTargetSNP1 = {}
 dictTargetSNP2 = {}
 dictPos = {}
@@ -43,7 +44,7 @@ for inF in infiles:
 			dictTargetSNP2.setdefault(siteID,set()).add(rec[1].split(" ")[0])
 #			dictTargetSNP2.setdefault(siteID,set()).add(rec[1])
 	handle2.close()	
-ohandle = open("Target1K_sites.txt","wb")
+ohandle = gzip.open("Target1K_sites.txt.gz","wb")
 out = csv.writer(ohandle,delimiter='\t')
 dictHaplo = {}
 dictHaploAll = {}
@@ -69,7 +70,7 @@ for pos in sorted(dictPos.keys()):
 			name = v1
 		out.writerow(ids.split("|")+[name,V2])
 		dictHaplo.setdefault(name,[]).append(V2)
-ohandle2 = open("Target1K_HaploGroup.txt","wb")
+ohandle2 = gzip.open("Target1K_HaploGroup.txt.gz","wb")
 out2 = csv.writer(ohandle2,delimiter="\t")
 for h in sorted(dictHaplo.keys()):
 #	print h,len(dictHaplo[h]),len(dictHaploAll[h])
