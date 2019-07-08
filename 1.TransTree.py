@@ -66,13 +66,14 @@ def main():
 		out2.writerow([">".join(plist)])
 
 if __name__ == '__main__':
-	files = glob("ISOGG_2019_*")
+	files = glob("ISOGG2019/ISOGG_2019_*")
 	for inFile in files:
 #		inFile = sys.argv[1]
 		f = open(inFile, "r")
+		fname = inFile.split("/")[-1]
 #		ohandle = open("Tree_%s"%sys.argv[1],"wb")
 #		out = csv.writer(ohandle,delimiter="\t")
-		ohandle2 = open("Path_%s"%inFile,"wb")
+		ohandle2 = open("Path_%s"%fname,"wb")
 		out2 = csv.writer(ohandle2,delimiter="\t")
 		main()
 		f.close()
