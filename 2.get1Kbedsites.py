@@ -3,7 +3,7 @@ import csv
 from glob import glob
 import gzip
 
-handle1 = open("1Kgene_capture_targets.chrY.bed","rU") # 1Kgene_capture_targets.chrY.bed
+handle1 = open("chrY.bed","rU") # 1Kgene_capture_targets.chrY.bed
 Ylist = [0]*28818010  #28818008
 for rec in csv.reader(handle1,delimiter="\t"):
 	for i in range(int(rec[1]),int(rec[2])+1):
